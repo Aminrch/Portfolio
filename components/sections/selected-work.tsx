@@ -5,7 +5,7 @@ import ProjectCard from "@/components/ui/project-card"
 import { FadeUp } from "@/components/ui/motion"
 import { Container } from "@/components/ui/container"
 
-export default function SelectedWork() {
+export function SelectedWork() {
   return (
     <section className="py-24">
       <Container>
