@@ -1,33 +1,50 @@
-import { Container } from "@/components/ui/container"
-import { SectionHeading } from "@/components/ui/section-heading"
+"use client"
 
-export function About() {
+import { useEffect, useState } from "react"
+
+export default function About() {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = document.getElementById("about")
+      if (!section) return
+
+      const rect = section.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+
+      const visible =
+        1 - Math.max(0, rect.top) / windowHeight
+
+      setProgress(Math.min(Math.max(visible, 0), 1))
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <section className="py-20 md:py-28">
-      <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <SectionHeading
-          eyebrow="About"
-          title="Designing and building websites with clarity, structure, and intent."
-        />
+    <section id="about" className="py-40">
+      <div className="max-w-3xl mx-auto text-2xl leading-relaxed">
+        
+        <p className="text-zinc-600">
+          I design and build modern web experiences focused on
+          performance, clarity, and interaction.
+        </p>
 
-        <div className="space-y-6 text-sm leading-8 text-zinc-400 md:text-base">
-          <p>
-            I’m Amin Ranjbar — a Webflow developer and website designer focused
-            on building modern websites for businesses, startups, and personal
-            brands.
-          </p>
-          <p>
-            My work is centered around clean layouts, responsive execution, and
-            a practical understanding of what a business website actually needs:
-            clarity, trust, and a structure that makes content easy to manage.
-          </p>
-          <p>
-            I enjoy turning rough ideas, design references, or existing sites
-            into polished web experiences that feel more intentional and more
-            useful than a generic template.
-          </p>
-        </div>
-      </Container>
+        <p
+          className="text-white transition-all duration-300"
+          style={{
+            opacity: progress,
+            transform: `translateY(${20 - progress * 20}px)`,
+          }}
+        >
+          I help brands transform static websites into
+          interactive digital experiences with strong visual hierarchy,
+          smooth motion, and user-focused design.
+        </p>
+
+      </div>
     </section>
   )
 }
