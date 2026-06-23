@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { ProjectCard } from "@/components/ui/project-card"
+import  ProjectCard  from "@/components/ui/project-card"
 import { projects } from "@/data/projects"
 
 export default function WorkPage() {

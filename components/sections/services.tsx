@@ -24,7 +24,7 @@ const services = [
   },
 ]
 
-export function Services() {
+export default function Services() {
   return (
     <section className="py-20 md:py-28">
       <Container>
