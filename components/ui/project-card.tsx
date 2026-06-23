@@ -52,3 +52,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
     </Link>
   )
 }
+<motion.div
+  whileHover={{
+    y: -8,
+    scale: 1.01,
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 200,
+    damping: 20,
+  }}
+>

@@ -1,21 +1,34 @@
-import { featuredProjects } from "@/data/projects"
+"use client"
+
+import { projects } from "@/data/projects"
+import ProjectCard from "@/components/ui/project-card"
+import { FadeUp } from "@/components/ui/motion"
 import { Container } from "@/components/ui/container"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { ProjectCard } from "@/components/ui/project-card"
 
-export function SelectedWork() {
+export default function SelectedWork() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-24">
       <Container>
-        <SectionHeading
-          eyebrow="Selected Work"
-          title="A focused selection of websites built for real businesses."
-          description="A compact portfolio of recent work across medical and investment-focused brands, built with a strong emphasis on clarity, responsiveness, and modern visual presentation."
-        />
+        {/* Header */}
+        <FadeUp>
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-semibold">
+              Selected Work
+            </h2>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <p className="text-zinc-400 mt-3 max-w-xl">
+              A collection of projects focused on clean design, usability,
+              and performance.
+            </p>
+          </div>
+        </FadeUp>
+
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, i) => (
+            <FadeUp key={project.slug} delay={i * 0.08}>
+              <ProjectCard project={project} />
+            </FadeUp>
           ))}
         </div>
       </Container>
