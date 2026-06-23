@@ -1,153 +1,107 @@
-import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { Container } from "@/components/ui/container"
 import { projects } from "@/data/projects"
+import { notFound } from "next/navigation"
 
-type ProjectPageProps = {
-  params: Promise<{ slug: string }>
-}
+export default function ProjectPage({ params }: any) {
+  const project = projects.find((p) => p.slug === params.slug)
 
-export async function generateMetadata({
-  params,
-}: ProjectPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const project = projects.find((item) => item.slug === slug)
-
-  if (!project) {
-    return {
-      title: "Project",
-    }
-  }
-
-  return {
-    title: project.title,
-    description: project.shortDescription,
-  }
-}
-
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = await params
-  const project = projects.find((item) => item.slug === slug)
-
-  if (!project) {
-    notFound()
-  }
+  if (!project) return notFound()
 
   return (
-    <main className="py-20 md:py-28">
-      <Container>
-        <div className="max-w-4xl">
-          <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.24em] text-zinc-400">
-            {project.category} • {project.year}
-          </span>
+    <div className="max-w-6xl mx-auto px-6 py-20">
+      <div className="grid lg:grid-cols-3 gap-12">
 
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white md:text-6xl">
-            {project.title}
-          </h1>
+        {/* MAIN CONTENT */}
+        <div className="lg:col-span-2 space-y-10">
 
-          <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-400">
-            {project.overview}
-          </p>
+          {/* Title */}
+          <div>
+            <h1 className="text-4xl font-bold">
+              {project.title}
+            </h1>
+            <p className="text-zinc-500 mt-2">
+              {project.category} • {project.year}
+            </p>
+          </div>
+
+          {/* Overview */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Overview</h2>
+            <p className="text-zinc-300 leading-relaxed">
+              {project.overview}
+            </p>
+          </section>
+
+          {/* Problem */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Problem</h2>
+            <p className="text-zinc-400 leading-relaxed">
+              {project.problem}
+            </p>
+          </section>
+
+          {/* Solution */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Solution</h2>
+            <p className="text-zinc-400 leading-relaxed">
+              {project.solution}
+            </p>
+          </section>
+
+          {/* Result */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Result</h2>
+            <p className="text-zinc-400 leading-relaxed">
+              {project.result}
+            </p>
+          </section>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-          <div className="relative aspect-[16/9]">
-            <Image
+        {/* SIDEBAR */}
+        <div className="space-y-8">
+
+          {/* Image */}
+          <div className="rounded-xl overflow-hidden border border-zinc-800">
+            <img
               src={project.coverImage}
-              alt={project.title}
-              fill
-              className="object-cover"
+              className="w-full h-auto"
             />
           </div>
-        </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="space-y-10">
-            <div>
-              <h2 className="text-2xl font-medium text-white">Overview</h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-400 md:text-base">
-                {project.shortDescription}
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-medium text-white">Challenge</h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-400 md:text-base">
-                {project.challenge}
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-medium text-white">Outcome</h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-400 md:text-base">
-                {project.outcome}
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-medium text-white">
-                What I worked on
-              </h2>
-              <ul className="mt-4 space-y-3 text-sm text-zinc-400">
-                {project.services.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <aside className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <h3 className="text-lg font-medium text-white">Tech stack</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
+          {/* Tech */}
+          <div className="p-5 rounded-xl border border-zinc-800">
+            <h3 className="font-semibold mb-3">Tech Stack</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.tech?.map((t) => (
                 <span
-                  key={tech}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-300"
+                  key={t}
+                  className="text-xs px-2 py-1 bg-zinc-900 rounded"
                 >
-                  {tech}
+                  {t}
                 </span>
               ))}
             </div>
-
-            {project.liveUrl ? (
-              <div className="mt-8">
-                <Link
-                  href={project.liveUrl}
-                  target="_blank"
-                  className="inline-flex rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition hover:opacity-90"
-                >
-                  Visit Live Site
-                </Link>
-              </div>
-            ) : null}
-          </aside>
-        </div>
-
-        <div className="mt-20 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 md:p-10">
-          <h2 className="text-2xl font-medium text-white">
-            Need something similar?
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-8 text-zinc-400 md:text-base">
-            If you need a clean, modern website for your business or want to
-            redesign an existing one, feel free to get in touch.
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/contact"
-              className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:opacity-90"
-            >
-              Start a Project
-            </Link>
           </div>
+
+          {/* Meta */}
+          <div className="p-5 rounded-xl border border-zinc-800 space-y-3">
+            <div>
+              <p className="text-xs text-zinc-500">Category</p>
+              <p>{project.category}</p>
+            </div>
+
+            <div>
+              <p className="text-xs text-zinc-500">Year</p>
+              <p>{project.year}</p>
+            </div>
+
+            <div>
+              <p className="text-xs text-zinc-500">Type</p>
+              <p>Case Study</p>
+            </div>
+          </div>
+
         </div>
-      </Container>
-    </main>
+      </div>
+    </div>
   )
 }
