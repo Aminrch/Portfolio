@@ -19,17 +19,6 @@ export default function About() {
   return (
     <section id="about" className="py-28 md:py-36">
       <Container>
-        <div className="mb-12 max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.22em] text-zinc-500">
-            About
-          </p>
-
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            I like building websites that feel calm at first glance —
-            then reveal depth through structure, motion, and detail.
-          </h2>
-        </div>
-
         <div
           ref={sectionRef}
           className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr]"
@@ -40,7 +29,6 @@ export default function About() {
             className="relative"
           >
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-              {/* glow */}
               <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)]" />
 
               <div className="relative aspect-[4/5] w-full">
@@ -69,7 +57,7 @@ export default function About() {
           </motion.div>
 
           {/* Right / Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 lg:pt-0">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -77,18 +65,17 @@ export default function About() {
               viewport={{ once: true, amount: 0.2 }}
               className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 md:p-8"
             >
-              <p className="text-sm leading-8 text-zinc-300 md:text-[1rem]">
+              <p className="text-base leading-8 text-zinc-300">
                 I’m Amin Ranjbar, a Webflow developer and front-end builder focused
-                on portfolio, business, and product websites. I’m mostly interested
-                in the space where design and implementation meet — where spacing,
-                hierarchy, motion, and front-end decisions all shape the final feel
-                of a website.
+                on portfolio, business, and product websites. I care most about the
+                point where design and implementation meet — where structure,
+                spacing, motion, and front-end decisions shape how a site feels.
               </p>
 
-              <p className="mt-5 text-sm leading-8 text-zinc-400 md:text-[1rem]">
-                What I care about most is making a site feel intentional. Not loud,
-                not overloaded — just clear structure, polished interactions, and
-                enough visual rhythm to make the whole experience feel memorable.
+              <p className="mt-5 text-base leading-8 text-zinc-400">
+                I prefer websites that feel intentional rather than loud: clear
+                hierarchy, polished interactions, and enough visual rhythm to make
+                the experience memorable without overloading it.
               </p>
             </motion.div>
 
@@ -97,15 +84,15 @@ export default function About() {
               {[
                 {
                   label: "Focus",
-                  value: "Webflow & premium front-end builds",
+                  value: "Webflow and premium front-end builds",
                 },
                 {
                   label: "Interest",
-                  value: "Clean interaction systems & case-study style sites",
+                  value: "Portfolio systems, landing pages, and cleaner interaction design",
                 },
                 {
                   label: "Approach",
-                  value: "Less noise, more structure, motion, and clarity",
+                  value: "Less noise, better structure, motion, and clarity",
                 },
               ].map((item, i) => (
                 <motion.div
@@ -130,7 +117,6 @@ export default function About() {
               ))}
             </div>
 
-            {/* editorial note */}
             <motion.div
               initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -142,14 +128,10 @@ export default function About() {
               viewport={{ once: true, amount: 0.2 }}
               className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7"
             >
-              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
-                Perspective
-              </p>
-
-              <p className="mt-4 max-w-2xl text-sm leading-8 text-zinc-300">
-                I’m less interested in making things look “impressive” and more
-                interested in making them feel coherent — the kind of site that stays
-                visually calm but becomes more interesting the longer you spend time
+              <p className="text-sm leading-8 text-zinc-300">
+                I’m less interested in making things look impressive for a moment
+                and more interested in making them feel coherent — the kind of site
+                that stays visually calm but gets better the longer you spend time
                 with it.
               </p>
             </motion.div>

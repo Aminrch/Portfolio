@@ -1,38 +1,37 @@
 import { Container } from "@/components/ui/container"
-import { SectionHeading } from "@/components/ui/section-heading"
 
 const services = [
   {
     title: "Webflow Development",
     description:
-      "Custom responsive websites built with clean structure, polished interactions, and scalable sections for future edits.",
+      "Responsive marketing and portfolio websites built with clean structure, polished interactions, and reusable sections.",
   },
   {
     title: "CMS Setup",
     description:
-      "Collection structure, dynamic pages, and content workflows that make updates easier after launch.",
+      "Collections, dynamic pages, and content structures that make editing and scaling the site easier after launch.",
   },
   {
     title: "SEO Foundations",
     description:
-      "On-page structure, semantic layout, and cleaner performance habits that help your site start from a better place.",
+      "Semantic structure, on-page basics, and performance-minded implementation for a stronger starting point.",
   },
   {
     title: "Website Maintenance",
     description:
-      "Updates, fixes, small improvements, and support for keeping your website stable and current.",
+      "Ongoing updates, fixes, and small improvements to keep the site stable, current, and clean.",
   },
 ]
 
-export default function Services() {
+export function Services() {
   return (
     <section className="py-20 md:py-28">
       <Container>
-        <SectionHeading
-          eyebrow="Services"
-          title="What I can help you build."
-          description="From marketing websites to clean portfolio builds, I focus on websites that feel modern, perform well, and stay easy to manage."
-        />
+        <div className="max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+            Services
+          </h2>
+        </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {services.map((service) => (
