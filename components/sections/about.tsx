@@ -1,35 +1,20 @@
 "use client"
 
+import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { Container } from "@/components/ui/container"
 
-const aboutText = `
-I care about websites that feel intentional. Not just “good looking”, but clear,
-trustworthy, and built with enough motion and rhythm to feel alive. My work usually
-starts with structure: content hierarchy, spacing, section flow, and how a visitor
-moves from one block to the next. Then I shape the visual language around that —
-clean typography, restrained contrast, subtle motion, and interaction details that
-support the message instead of distracting from it.
-
-Most of the projects I enjoy are the ones where design and implementation meet in
-the middle: building a portfolio that actually feels like a personal brand, turning a
-service site into something more premium and confident, or taking a simple landing
-page and giving it enough polish that it feels memorable. I’m especially interested in
-interfaces that look calm at first glance but reveal depth through spacing, motion,
-and pacing as you scroll.
-`.trim()
-
 export default function About() {
-  const ref = useRef<HTMLDivElement | null>(null)
+  const sectionRef = useRef<HTMLDivElement | null>(null)
 
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 80%", "end 30%"],
+    target: sectionRef,
+    offset: ["start 85%", "end 20%"],
   })
 
-  const words = aboutText.split(" ")
-  const tail = 0.08
+  const imageY = useTransform(scrollYProgress, [0, 1], [24, -18])
+  const imageRotate = useTransform(scrollYProgress, [0, 1], [0.8, -0.8])
 
   return (
     <section id="about" className="py-28 md:py-36">
@@ -38,85 +23,136 @@ export default function About() {
           <p className="text-xs uppercase tracking-[0.22em] text-zinc-500">
             About
           </p>
+
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            Design should feel calm, sharp, and memorable — not loud for no reason.
+            I like building websites that feel calm at first glance —
+            then reveal depth through structure, motion, and detail.
           </h2>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-          {/* Left: scroll fill text */}
-          <div
-            ref={ref}
-            className="rounded-3xl border border-white/8 bg-white/[0.02] p-6 md:p-8"
+        <div
+          ref={sectionRef}
+          className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr]"
+        >
+          {/* Left / Portrait */}
+          <motion.div
+            style={{ y: imageY, rotate: imageRotate }}
+            className="relative"
           >
-            <p className="text-[1.1rem] leading-9 md:text-[1.35rem] md:leading-[2.35rem]">
-              {words.map((word, i) => {
-                const start = i / words.length
-                const end = Math.min((i + 1) / words.length + tail, 1)
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+              {/* glow */}
+              <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)]" />
 
-                const opacity = useTransform(
-                  scrollYProgress,
-                  [start, end],
-                  [0.16, 1]
-                )
+              <div className="relative aspect-[4/5] w-full">
+                <Image
+                  src="/images/amin-portrait.jpg"
+                  alt="Amin Ranjbar portrait"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
 
-                const y = useTransform(
-                  scrollYProgress,
-                  [start, end],
-                  [8, 0]
-                )
+            <motion.div
+              className="absolute -bottom-5 -right-5 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 backdrop-blur-md"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+                Based in
+              </p>
+              <p className="mt-2 text-sm text-white">Iran — working remotely</p>
+            </motion.div>
+          </motion.div>
 
-                return (
-                  <motion.span
-                    key={`${word}-${i}`}
-                    style={{ opacity, y }}
-                    className="mr-[0.35rem] inline-block text-white/95"
-                  >
-                    {word}
-                  </motion.span>
-                )
-              })}
-            </p>
-          </div>
+          {/* Right / Content */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 md:p-8"
+            >
+              <p className="text-sm leading-8 text-zinc-300 md:text-[1rem]">
+                I’m Amin Ranjbar, a Webflow developer and front-end builder focused
+                on portfolio, business, and product websites. I’m mostly interested
+                in the space where design and implementation meet — where spacing,
+                hierarchy, motion, and front-end decisions all shape the final feel
+                of a website.
+              </p>
 
-          {/* Right panel */}
-          <div className="space-y-6">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-7">
+              <p className="mt-5 text-sm leading-8 text-zinc-400 md:text-[1rem]">
+                What I care about most is making a site feel intentional. Not loud,
+                not overloaded — just clear structure, polished interactions, and
+                enough visual rhythm to make the whole experience feel memorable.
+              </p>
+            </motion.div>
+
+            {/* mini cards */}
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                {
+                  label: "Focus",
+                  value: "Webflow & premium front-end builds",
+                },
+                {
+                  label: "Interest",
+                  value: "Clean interaction systems & case-study style sites",
+                },
+                {
+                  label: "Approach",
+                  value: "Less noise, more structure, motion, and clarity",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.65,
+                    delay: i * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="rounded-3xl border border-white/10 bg-white/[0.03] p-5"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-zinc-300">
+                    {item.value}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* editorial note */}
+            <motion.div
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.08,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7"
+            >
               <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
                 Perspective
               </p>
 
-              <div className="mt-5 space-y-6 text-sm leading-8 text-zinc-300">
-                <p>
-                  I’m less interested in making things look “impressive” and more interested
-                  in making them feel intentional.
-                </p>
-
-                <p>
-                  The projects I enjoy most usually sit somewhere between design and build —
-                  where layout, spacing, motion, and implementation all shape the final feeling
-                  of the site.
-                </p>
-
-                <p>
-                  I like interfaces that stay visually calm, but still have enough rhythm and
-                  tension to feel memorable once you spend time with them.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-6 md:p-7">
-              <p className="text-xs uppercase tracking-[0.18em] text-zinc-500">
-                What I care about
+              <p className="mt-4 max-w-2xl text-sm leading-8 text-zinc-300">
+                I’m less interested in making things look “impressive” and more
+                interested in making them feel coherent — the kind of site that stays
+                visually calm but becomes more interesting the longer you spend time
+                with it.
               </p>
-
-              <p className="mt-4 text-sm leading-8 text-zinc-300">
-                Good spacing, clear hierarchy, motion that doesn’t try too hard, and pages
-                that feel cohesive from top to bottom. Most of the time I’m refining the small
-                things — how a section opens, how dense a block feels, or whether a page has
-                enough contrast and pause to breathe.
-              </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </Container>
