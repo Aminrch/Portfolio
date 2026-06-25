@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import "./globals.css"
+
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { GlobalBackground } from "@/components/ui/global-bg"
 
 export const metadata: Metadata = {
   title: {
@@ -14,17 +16,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="bg-[#07070a] text-white antialiased">
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_30%)]">
+      <body className="bg-[#030304] text-white antialiased">
+
+        {/* 🌌 global cinematic background */}
+        <GlobalBackground />
+
+        {/* 🧱 app structure */}
+        <div className="relative min-h-screen">
           <Navbar />
+
           {children}
+
           <Footer />
         </div>
+
       </body>
     </html>
   )
