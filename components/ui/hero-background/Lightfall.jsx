@@ -170,7 +170,7 @@ void main() {
 
 const Lightfall = ({
   className,
-  dpr,
+  dpr = undefined,
   paused = false,
   colors = ['#A6C8FF', '#5227FF', '#FF9FFC'],
   backgroundColor = '#0A29FF',
@@ -188,7 +188,7 @@ const Lightfall = ({
   mouseStrength = 0.5,
   mouseRadius = 1,
   mouseDampening = 0.15,
-  mixBlendMode
+  mixBlendMode = undefined
 }) => {
   const containerRef = useRef(null);
   const rafRef = useRef(null);
